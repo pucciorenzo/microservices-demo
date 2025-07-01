@@ -9,6 +9,7 @@ spec:
     name:       currencyservice
   updatePolicy:
     updateMode: "Auto"
+    minReplicas: 1
   resourcePolicy:
     containerPolicies:
     - containerName: server
