@@ -735,7 +735,11 @@ spec:
               - ALL
           privileged: false
           readOnlyRootFilesystem: true
-        image: us-central1-docker.pkg.dev/google-samples/microservices-demo/loadgenerator:v0.10.3
+        image: stegala/loadgenerator
+        ports:
+        - containerPort: 8089
+          name: web
+          protocol: TCP
         env:
         - name: FRONTEND_ADDR
           value: "frontend:80"
@@ -743,13 +747,35 @@ spec:
           value: "10"
         - name: RATE
           value: "1"
+        - name: MIN_USERS
+          value: "1"
+        - name: MAX_USERS
+          value: "200"
+        - name: PERIOD
+          value: "600"
         resources:
           requests:
-            cpu: 300m
+            cpu: 1000m
             memory: 256Mi
           limits:
-            cpu: 500m
+            cpu: 1000m
             memory: 512Mi
+---
+apiVersion: v1
+kind: Service
+metadata:
+  name: loadgenerator
+  labels:
+    app: loadgenerator
+spec:
+  type: NodePort
+  selector:
+    app: loadgenerator
+  ports:
+    - port: 8089        # Port on the cluster IP service
+      targetPort: 8089  # Port on the pod container
+      protocol: TCP
+      name: web
 ---
 apiVersion: v1
 kind: ServiceAccount
