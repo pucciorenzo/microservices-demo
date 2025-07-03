@@ -84,8 +84,8 @@ class SinusoidalShape(LoadTestShape):
 
     # get min_users, max_users, and period from environment variables or set defaults
     min_users = int(os.getenv("MIN_USERS", 10))
-    max_users = int(os.getenv("MAX_USERS", 100))
-    period = int(os.getenv("PERIOD", 120))  # full cycle every 2 minutes
+    max_users = int(os.getenv("MAX_USERS", 200))
+    period = int(os.getenv("PERIOD", 600))  # full cycle every 2 minutes
 
     min_users = 10
     max_users = 100

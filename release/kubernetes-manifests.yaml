@@ -728,6 +728,7 @@ spec:
           value: "frontend:80"
       containers:
       - name: main
+        imagePullPolicy: Always
         securityContext:
           allowPrivilegeEscalation: false
           capabilities:
